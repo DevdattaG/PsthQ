@@ -1,6 +1,7 @@
 package kz.passqr;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +20,7 @@ public class LoginPage extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.login_page);
         Button submitButton = (Button)findViewById(R.id.button4);
         Button clearButton = (Button)findViewById(R.id.button3);
         final EditText userName = (EditText)findViewById(R.id.editText);
@@ -28,10 +29,14 @@ public class LoginPage extends Activity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(userName.getText().toString().equals("admin") &&
+                if(userName.getText().toString().equals("devdatta") &&
 
-                        password.getText().toString().equals("admin")) {
+                        password.getText().toString().equals("devdatta")) {
                     Toast.makeText(getApplicationContext(), "Redirecting...",Toast.LENGTH_SHORT).show();
+                    Intent nextPage = new Intent(
+                            "android.intent.action.MAINACTIVITY");
+
+                    startActivity(nextPage);
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Wrong Credentials",Toast.LENGTH_SHORT).show();
