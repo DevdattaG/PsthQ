@@ -1,6 +1,7 @@
 package kz.passqr;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,10 @@ public class MainActivity extends Activity {
 
    public void clickFuncShowQR(View view){
        Toast.makeText(MainActivity.this, "ShowQR Clicked", Toast.LENGTH_SHORT).show();
+       Intent nextPage = new Intent(
+               "android.intent.action.QRReader");
+
+       startActivity(nextPage);
    }
 
     public void clickFuncExit(View view){
