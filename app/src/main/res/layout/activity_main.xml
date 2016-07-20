@@ -12,7 +12,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
         android:id="@+id/textView" />
 
     <Button
@@ -32,7 +31,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Exit"
+        android:text="Logout"
         android:id="@+id/button2"
         android:layout_marginTop="77dp"
         android:textAlignment="center"
