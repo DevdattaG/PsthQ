@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/editText"
         android:layout_weight="0.16"
-        android:text="username"
+        android:text="devdatta"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:focusable="true"

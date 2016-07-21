@@ -101,7 +101,7 @@ public class QRReader extends Activity{
                                 @Override
                                 public void onClick(View v) {
                                     dialog.dismiss();
-
+                                    System.exit(0);
                                 }
                             });
 

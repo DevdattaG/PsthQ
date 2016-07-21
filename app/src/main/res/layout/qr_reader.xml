@@ -19,8 +19,8 @@
         android:layout_alignParentTop="true"
         />
     <SurfaceView
-        android:layout_width="640px"
-        android:layout_height="480px"
+        android:layout_width="640dp"
+        android:layout_height="480dp"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:id="@+id/camera_view"
