@@ -1,9 +1,14 @@
 package kz.passqr;
 
+import android.*;
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.RequiresPermission;
+import android.support.v4.content.ContextCompat;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -43,19 +48,27 @@ public class QRReader extends Activity{
                         .build();
 
         cameraSource = new CameraSource
-                .Builder(this, barcodeDetector)
+                .Builder(this, barcodeDetector).setAutoFocusEnabled(true)
                 .setRequestedPreviewSize(640, 480)
                 .build();
 
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
+
             @Override
+
             public void surfaceCreated(SurfaceHolder holder)  {
 
-                try{
-                    cameraSource.start(cameraView.getHolder());
-                }catch(Exception e){
+                int hasPermission = ContextCompat.checkSelfPermission(context,Manifest.permission.CAMERA);
+                if (hasPermission == PackageManager.PERMISSION_GRANTED) {
+                    //Do smthng
+                    try {
+                        cameraSource.start(cameraView.getHolder());
+                    }catch (Exception e){
 
+                    }
                 }
+
+
 
 
             }
