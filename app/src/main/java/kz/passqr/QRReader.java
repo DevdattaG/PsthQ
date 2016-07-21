@@ -1,10 +1,15 @@
 package kz.passqr;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
@@ -16,6 +21,8 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
  * Created by KZ-Tech on 7/20/2016.
  */
 public class QRReader extends Activity{
+    final Context context = this;
+
 
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
@@ -78,6 +85,28 @@ public class QRReader extends Activity{
                             barcodeInfo.setText(    // Update the TextView
                                     barcodes.valueAt(0).displayValue
                             );
+                            final Dialog dialog = new Dialog(context);
+                            dialog.setContentView(R.layout.qr_dialog);
+                            dialog.setTitle("PassThru");
+
+                            // set the custom dialog components - text, image and button
+                            TextView text = (TextView) dialog.findViewById(R.id.text);
+                            text.setText(barcodes.valueAt(0).displayValue);
+                            ImageView image = (ImageView) dialog.findViewById(R.id.image);
+                            image.setImageResource(R.mipmap.ic_launcher);
+
+                            Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+                            // if button is clicked, close the custom dialog
+                            dialogButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+
+                                }
+                            });
+
+                            dialog.show();
+
                         }
                     });
                 }
