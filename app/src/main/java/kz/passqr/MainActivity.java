@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
    public void clickFuncShowQR(View view){
        Toast.makeText(MainActivity.this, "ShowQR Clicked", Toast.LENGTH_SHORT).show();
        Intent nextPage = new Intent(
-               "android.intent.action.QRReader");
+               "android.intent.action.ValidateCode");
 
        startActivity(nextPage);
    }

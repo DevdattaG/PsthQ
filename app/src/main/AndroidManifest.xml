@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kz.passqr">
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <application
@@ -30,6 +31,13 @@
         <activity android:name=".QRReader">
             <intent-filter>
                 <action android:name="android.intent.action.QRReader" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ValidateCode">
+            <intent-filter>
+                <action android:name="android.intent.action.ValidateCode" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
