@@ -41,8 +41,9 @@
                 android:text="Code"
                 android:id="@+id/textView3"
                 android:layout_weight="0.16"
-                android:textColor="#023AAA"
-                android:textSize="20dp" />
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:textIsSelectable="false" />
         </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -56,10 +57,11 @@
                 android:id="@+id/codeDisplay"
                 android:layout_weight="0.16"
                 android:text="SDPPQcNI44N"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textSize="20dp"
-                android:background="#023AAA"
-                    android:width="165dp" />
+                android:background="#FFFFFF"
+                    android:width="165dp"
+                    android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -74,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:text="Status"
                 android:id="@+id/textView4"
-                android:textColor="#023AAA"
+                android:textColor="#000000"
                 android:textSize="20dp" />
 
             <TextView
@@ -83,11 +85,12 @@
                 android:id="@+id/statusDisplay"
                 android:layout_marginTop="10dp"
                 android:layout_weight="0.16"
-                android:background="#023AAA"
-                android:textColor="#FFFFFF"
+                android:background="#FFFFFF"
+                android:textColor="#000000"
                 android:text="USER ALREADY IN"
                 android:textSize="20dp"
-                android:width="165dp" />
+                android:width="165dp"
+                android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -103,7 +106,7 @@
                 android:text="Ok"
                 android:id="@+id/button4"
                 android:layout_weight="0.16"
-                android:background="#023AAA"
+                android:background="#ED1651"
                 android:textColor="#ffffff"
                 android:textSize="20dp"
                 android:textAlignment="center"
@@ -120,7 +123,7 @@
                 android:text="Details"
                 android:id="@+id/button3"
                 android:layout_weight="0.16"
-                android:background="#023AAA"
+                android:background="#ED1651"
                 android:textColor="#ffffff"
                 android:textSize="20dp"
                 android:textAlignment="center"
