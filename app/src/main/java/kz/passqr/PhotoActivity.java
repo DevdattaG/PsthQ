@@ -47,7 +47,7 @@ public class PhotoActivity extends Activity {
 
             BarcodeDetector barcodeDetector =
                     new BarcodeDetector.Builder(this)
-                            .setBarcodeFormats(Barcode.QR_CODE)
+                            .setBarcodeFormats(Barcode.ALL_FORMATS)
                             .build();
 
             Frame myFrame = new Frame.Builder()

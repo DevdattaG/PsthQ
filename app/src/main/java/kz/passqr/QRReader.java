@@ -44,7 +44,7 @@ public class QRReader extends Activity{
 
         barcodeDetector =
                 new BarcodeDetector.Builder(this)
-                        .setBarcodeFormats(Barcode.QR_CODE)
+                        .setBarcodeFormats(Barcode.ALL_FORMATS)
                         .build();
 
         cameraSource = new CameraSource
