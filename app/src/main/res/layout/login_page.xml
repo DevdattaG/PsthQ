@@ -11,11 +11,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PassThru"
+        android:text="KYAZOONGA"
         android:id="@+id/textView2"
         android:layout_weight="0.16"
         android:textAlignment="center"
-        android:textColor="#023AAA"
+        android:textColor="#000000"
         android:textSize="40dp"
         android:textIsSelectable="false"
         android:layout_margin="20dp" />
@@ -30,7 +30,7 @@
         android:text="Username"
         android:id="@+id/textView3"
         android:layout_weight="0.16"
-        android:textColor="#023AAA"
+        android:textColor="#000000"
         android:textSize="20dp"
         android:layout_margin="20dp" />
 
@@ -40,11 +40,11 @@
         android:id="@+id/editText"
         android:layout_weight="0.16"
         android:text="devdatta"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="20dp"
         android:focusable="true"
         android:editable="true"
-        android:background="#023AAA"
+        android:background="#FFFFFF"
         android:layout_margin="20dp"
         android:width="100dp" />
         </LinearLayout>
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:text="Password"
         android:id="@+id/textView4"
-        android:textColor="#023AAA"
+        android:textColor="#000000"
         android:textSize="20dp"
         android:layout_margin="20dp"
         />
@@ -71,8 +71,8 @@
         android:ems="10"
         android:id="@+id/editText2"
         android:layout_weight="0.16"
-        android:background="#023AAA"
-        android:textColor="#FFFFFF"
+        android:background="#FFFFFF"
+        android:textColor="#000000"
         android:text="devdatta"
         android:layout_margin="20dp"
         android:width="165dp" />
@@ -89,7 +89,7 @@
         android:text="Submit"
         android:id="@+id/button4"
         android:layout_weight="0.16"
-        android:background="#023AAA"
+        android:background="#ED1651"
         android:textColor="#ffffff"
         android:textSize="20dp"
         android:textAlignment="center"
@@ -105,7 +105,7 @@
         android:text="Clear"
         android:id="@+id/button3"
         android:layout_weight="0.16"
-        android:background="#023AAA"
+        android:background="#ED1651"
         android:textColor="#ffffff"
         android:textSize="20dp"
         android:textAlignment="center"
