@@ -101,8 +101,9 @@ public class QRReader extends Activity{
                                     "android.intent.action.ValidationPage");
                             validationPage.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             validationPage.putExtra("Code",barcodes.valueAt(0).displayValue);
-                            //System.exit(0);
+
                             startActivity(validationPage);
+                            System.exit(0);
 //                            final Dialog dialog = new Dialog(context);
 //                            dialog.setContentView(R.layout.qr_dialog);
 //                            dialog.setTitle("PassThru");
