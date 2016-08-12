@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.RequiresPermission;
@@ -95,30 +96,34 @@ public class QRReader extends Activity{
                 if (barcodes.size() != 0) {
                     barcodeInfo.post(new Runnable() {    // Use the post method of the TextView
                         public void run() {
-                            barcodeInfo.setText(    // Update the TextView
-                                    barcodes.valueAt(0).displayValue
-                            );
-                            final Dialog dialog = new Dialog(context);
-                            dialog.setContentView(R.layout.qr_dialog);
-                            dialog.setTitle("PassThru");
-
-                            // set the custom dialog components - text, image and button
-                            TextView text = (TextView) dialog.findViewById(R.id.text);
-                            text.setText(barcodes.valueAt(0).displayValue);
-                            ImageView image = (ImageView) dialog.findViewById(R.id.image);
-                            image.setImageResource(R.mipmap.ic_launcher);
-
-                            Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
-                            // if button is clicked, close the custom dialog
-                            dialogButton.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.dismiss();
-                                    System.exit(0);
-                                }
-                            });
-
-                            dialog.show();
+                            //cameraSource.release();
+                            Intent validationPage = new Intent(
+                                    "android.intent.action.ValidationPage");
+                            validationPage.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            validationPage.putExtra("Code",barcodes.valueAt(0).displayValue);
+                            //System.exit(0);
+                            startActivity(validationPage);
+//                            final Dialog dialog = new Dialog(context);
+//                            dialog.setContentView(R.layout.qr_dialog);
+//                            dialog.setTitle("PassThru");
+//
+//                            // set the custom dialog components - text, image and button
+//                            TextView text = (TextView) dialog.findViewById(R.id.text);
+//                            text.setText(barcodes.valueAt(0).displayValue);
+//                            ImageView image = (ImageView) dialog.findViewById(R.id.image);
+//                            image.setImageResource(R.mipmap.ic_launcher);
+//
+//                            Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+//                            // if button is clicked, close the custom dialog
+//                            dialogButton.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    dialog.dismiss();
+//                                    System.exit(0);
+//                                }
+//                            });
+//
+//                            dialog.show();
 
                         }
                     });

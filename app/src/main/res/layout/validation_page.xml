@@ -56,8 +56,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/codeDisplay"
                 android:layout_weight="0.16"
-                android:text=""
-                android:textColor="#000000"
+                    android:textColor="#000000"
                 android:textSize="20dp"
                 android:background="#FFFFFF"
                     android:width="165dp"
@@ -113,7 +112,8 @@
 
                 android:paddingStart="10px"
                 android:paddingEnd="10px"
-                android:layout_marginRight="20dp" />
+                android:layout_marginRight="20dp"
+                android:onClick="clickOK"/>
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -130,7 +130,8 @@
                 android:singleLine="false"
                 android:paddingStart="10px"
                 android:paddingEnd="10px"
-                android:layout_marginLeft="20dp" />
+                android:layout_marginLeft="20dp"
+                android:onClick="clickDetails"/>
         </LinearLayout>
 
 
