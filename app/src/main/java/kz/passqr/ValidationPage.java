@@ -68,13 +68,14 @@ public class ValidationPage extends ActionBarActivity {
     public void clickDetails(View view){
                             final Dialog dialog = new Dialog(context);
                             dialog.setContentView(R.layout.qr_dialog);
-                            dialog.setTitle("PassThru");
+                           // dialog.setTitle("PassThru");
+                            dialog.setTitle(status);
 
                             // set the custom dialog components - text, image and button
                             TextView text = (TextView) dialog.findViewById(R.id.text);
                             text.setText(details);
-                            ImageView image = (ImageView) dialog.findViewById(R.id.image);
-                            image.setImageResource(R.mipmap.ic_launcher);
+                           // ImageView image = (ImageView) dialog.findViewById(R.id.image);
+                            //image.setImageResource(R.mipmap.ic_launcher);
 
                             Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
                             // if button is clicked, close the custom dialog

@@ -5,35 +5,23 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp" />
-
         <TextView
             android:id="@+id/text"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:layout_toRightOf="@+id/image"/>/>
+            android:textColor="#000" />
 
         <Button
             android:id="@+id/dialogButtonOK"
-            android:layout_width="100px"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" Ok "
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
-            android:layout_below="@+id/image"
+            android:layout_marginLeft="100dp"
+            android:layout_below="@+id/text"
             />
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
