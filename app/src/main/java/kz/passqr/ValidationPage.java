@@ -34,18 +34,26 @@ public class ValidationPage extends ActionBarActivity {
     String TAG = "Response";
     SoapPrimitive resultString;
     String code ="";
+    static String status = "";
+
+    static TextView codeView;
+    static TextView statusView;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.validation_page);
        // Intent myIntent = getIntent(); // gets the previously created intent
         code = getIntent().getStringExtra("Code");
+        //Toast.makeText(ValidationPage.this, "Response" + code.toString(), Toast.LENGTH_LONG).show();
         AsyncCallWS task = new AsyncCallWS();
         task.execute();
 
-
-        final TextView codeView = (TextView) findViewById(R.id.codeDisplay);
+        Toast.makeText(ValidationPage.this, "Setting values to texts", Toast.LENGTH_SHORT).show();
+        codeView = (TextView) findViewById(R.id.codeDisplay);
+        statusView = (TextView) findViewById(R.id.statusDisplay);
+        statusView.setText(status);
         codeView.setText(code);
     }
+
     public void clickOK(View view){
         Toast.makeText(ValidationPage.this, "Redirecting", Toast.LENGTH_SHORT).show();
         Intent mainPage = new Intent("android.intent.action.MAINACTIVITY");
@@ -70,7 +78,11 @@ public class ValidationPage extends ActionBarActivity {
         @Override
         protected void onPostExecute(Void result) {
             Log.i(TAG, "onPostExecute");
+            Toast.makeText(ValidationPage.this, "Responce for status : " + status, Toast.LENGTH_LONG).show();
+            statusView.setText(status);
+            statusView.invalidate();
             Toast.makeText(ValidationPage.this, "Response" + resultString.toString(), Toast.LENGTH_LONG).show();
+
         }
 
     }
@@ -82,9 +94,10 @@ public class ValidationPage extends ActionBarActivity {
         String URL = "http://54.149.90.101/KzWebservice/barcodescanner.asmx";
 
         try {
-            String abc = "4444";
+           // String abc = "4444";
             SoapObject Request = new SoapObject(NAMESPACE, METHOD_NAME);
-            Request.addProperty("barcode", Integer.parseInt(abc));
+           // Toast.makeText(ValidationPage.this, "Response" + code, Toast.LENGTH_LONG).show();
+            Request.addProperty("barcode", code);
             SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             soapEnvelope.dotNet = true;
             soapEnvelope.setOutputSoapObject(Request);
@@ -95,9 +108,9 @@ public class ValidationPage extends ActionBarActivity {
             resultString = (SoapPrimitive) soapEnvelope.getResponse();
             String response = resultString.toString();
             final Pattern acknowledgementPattern = Pattern.compile("<Acknowledgement>(.+?)</Acknowledgement>");
-            final Pattern countAckPattern = Pattern.compile("<Acknowledgement>(.+?)</Acknowledgement>");
+            final Pattern countAckPattern = Pattern.compile("<CountAck>(.+?)</CountAck>");
             final Matcher acknowledgementMatcher = acknowledgementPattern.matcher(response);
-            final Matcher countAckMatcher = acknowledgementPattern.matcher(response);
+            final Matcher countAckMatcher = countAckPattern.matcher(response);
             acknowledgementMatcher.find();
             countAckMatcher.find();
             Log.i(TAG, "Response caught : " + response);
@@ -106,13 +119,19 @@ public class ValidationPage extends ActionBarActivity {
             if(acknowledgementMatcher.group(1) == "True" && countAckMatcher.group(1) == "True")
             {
                 Log.d(TAG,"Valid User... User not checked in yet");
+                status = "Valid Code";
+
             }else if(acknowledgementMatcher.group(1) == "True" && countAckMatcher.group(1) == "False")
             {
                 Log.d(TAG,"Valid User... User has checked in already");
+                status = "Already In";
             }else
             {
                 Log.d(TAG,"Invalid User !!!");
+                status = "Invalid Code";
+
             }
+//            statusView.setText(status);
         } catch (Exception ex) {
             Log.e(TAG, "Error: " + ex.getMessage());
         }
