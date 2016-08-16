@@ -34,7 +34,8 @@ public class ValidationPage extends ActionBarActivity {
     String TAG = "Response";
     SoapPrimitive resultString;
     String code ="";
-    static String status = "";
+    static String status = "fetching...";
+    String details ="";
 
     static TextView codeView;
     static TextView statusView;
@@ -47,7 +48,7 @@ public class ValidationPage extends ActionBarActivity {
         AsyncCallWS task = new AsyncCallWS();
         task.execute();
 
-        Toast.makeText(ValidationPage.this, "Setting values to texts", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(ValidationPage.this, "Setting values to texts", Toast.LENGTH_SHORT).show();
         codeView = (TextView) findViewById(R.id.codeDisplay);
         statusView = (TextView) findViewById(R.id.statusDisplay);
         statusView.setText(status);
@@ -78,10 +79,10 @@ public class ValidationPage extends ActionBarActivity {
         @Override
         protected void onPostExecute(Void result) {
             Log.i(TAG, "onPostExecute");
-            Toast.makeText(ValidationPage.this, "Responce for status : " + status, Toast.LENGTH_LONG).show();
+        //    Toast.makeText(ValidationPage.this, "Responce for status : " + status, Toast.LENGTH_LONG).show();
             statusView.setText(status);
             statusView.invalidate();
-            Toast.makeText(ValidationPage.this, "Response" + resultString.toString(), Toast.LENGTH_LONG).show();
+        //    Toast.makeText(ValidationPage.this, "Response" + resultString.toString(), Toast.LENGTH_LONG).show();
 
         }
 
