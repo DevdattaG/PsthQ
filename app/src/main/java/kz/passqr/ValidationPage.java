@@ -1,10 +1,12 @@
 package kz.passqr;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.AsyncTask;
@@ -35,7 +37,7 @@ public class ValidationPage extends ActionBarActivity {
     SoapPrimitive resultString;
     String code ="";
     static String status = "fetching...";
-    String details ="";
+    static String details ="";
 
     static TextView codeView;
     static TextView statusView;
@@ -62,6 +64,32 @@ public class ValidationPage extends ActionBarActivity {
         startActivity(mainPage);
         System.exit(0);
     }
+
+    public void clickDetails(View view){
+                            final Dialog dialog = new Dialog(context);
+                            dialog.setContentView(R.layout.qr_dialog);
+                            dialog.setTitle("PassThru");
+
+                            // set the custom dialog components - text, image and button
+                            TextView text = (TextView) dialog.findViewById(R.id.text);
+                            text.setText(details);
+                            ImageView image = (ImageView) dialog.findViewById(R.id.image);
+                            image.setImageResource(R.mipmap.ic_launcher);
+
+                            Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+                            // if button is clicked, close the custom dialog
+                            dialogButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                    System.exit(0);
+                                }
+                            });
+
+                            dialog.show();
+
+    }
+
     private class AsyncCallWS extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -81,6 +109,7 @@ public class ValidationPage extends ActionBarActivity {
             Log.i(TAG, "onPostExecute");
         //    Toast.makeText(ValidationPage.this, "Responce for status : " + status, Toast.LENGTH_LONG).show();
             statusView.setText(status);
+            details = resultString.toString();
             statusView.invalidate();
         //    Toast.makeText(ValidationPage.this, "Response" + resultString.toString(), Toast.LENGTH_LONG).show();
 
