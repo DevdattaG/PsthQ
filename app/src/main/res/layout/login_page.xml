@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/editText"
         android:layout_weight="0.16"
-        android:text="devdatta"
+        android:text="Kyazoonga"
         android:textColor="#000000"
         android:textSize="20dp"
         android:focusable="true"
@@ -73,7 +73,7 @@
         android:layout_weight="0.16"
         android:background="#FFFFFF"
         android:textColor="#000000"
-        android:text="devdatta"
+        android:text="Kyazoonga"
         android:layout_margin="20dp"
         android:width="165dp" />
     </LinearLayout>

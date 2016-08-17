@@ -29,9 +29,9 @@ public class LoginPage extends Activity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(userName.getText().toString().equals("devdatta") &&
+                if(userName.getText().toString().equals("Kyazoonga") &&
 
-                        password.getText().toString().equals("devdatta")) {
+                        password.getText().toString().equals("Kyazoonga")) {
                     Toast.makeText(getApplicationContext(), "Redirecting...",Toast.LENGTH_SHORT).show();
                     Intent nextPage = new Intent(
                             "android.intent.action.MAINACTIVITY");
