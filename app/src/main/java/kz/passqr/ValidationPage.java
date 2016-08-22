@@ -51,6 +51,7 @@ public class ValidationPage extends ActionBarActivity {
         task.execute();
 
        // Toast.makeText(ValidationPage.this, "Setting values to texts", Toast.LENGTH_SHORT).show();
+        // displays final values. (Delete this after)
         codeView = (TextView) findViewById(R.id.codeDisplay);
         statusView = (TextView) findViewById(R.id.statusDisplay);
         statusView.setText(status);
