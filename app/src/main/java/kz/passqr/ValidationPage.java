@@ -18,15 +18,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.PropertyInfo;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by KZ-Tech on 8/11/2016.
@@ -34,9 +37,8 @@ import java.util.regex.Pattern;
 public class ValidationPage extends ActionBarActivity {
     final Context context = this;
     String TAG = "Response";
-    SoapPrimitive resultString;
     String code ="";
-    static String status = "fetching...";
+    String status = "fetching...";
     static String details ="";
 
     static TextView codeView;
@@ -108,61 +110,81 @@ public class ValidationPage extends ActionBarActivity {
         @Override
         protected void onPostExecute(Void result) {
             Log.i(TAG, "onPostExecute");
-        //    Toast.makeText(ValidationPage.this, "Responce for status : " + status, Toast.LENGTH_LONG).show();
-            statusView.setText(status);
-            details = resultString.toString();
-            statusView.invalidate();
+            //Toast.makeText(ValidationPage.this, "Responce for status : " + status, Toast.LENGTH_LONG).show();
+
         //    Toast.makeText(ValidationPage.this, "Response" + resultString.toString(), Toast.LENGTH_LONG).show();
 
         }
 
     }
+    public void setStatus(String stat){
+        this.status = stat;
+        statusView.setText(this.status);
+        statusView.invalidate();
+    }
 
     public void calculate() {
-        String SOAP_ACTION = "http://tempuri.org/BarcodeStatus";
-        String METHOD_NAME = "BarcodeStatus";
-        String NAMESPACE = "http://tempuri.org/";
-        String URL = "http://54.149.90.101/KzWebservice/barcodescanner.asmx";
+        String url = "http://192.168.2.11:80/PassT_WebService/api/Scan/CheckIsQRCodeValid";
+        final JSONObject body = new JSONObject();
+        try {
+            body.put("TransId",code);
+            body.put("TollPlazaId",2);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         try {
-           // String abc = "4444";
-            SoapObject Request = new SoapObject(NAMESPACE, METHOD_NAME);
-           // Toast.makeText(ValidationPage.this, "Response" + code, Toast.LENGTH_LONG).show();
-            Request.addProperty("barcode", code);
-            SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-            soapEnvelope.dotNet = true;
-            soapEnvelope.setOutputSoapObject(Request);
 
-            HttpTransportSE transport = new HttpTransportSE(URL);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.d(TAG, response);
+                            status = response;
+                            //Toast.makeText(ValidationPage.this, "The Response : " + response, Toast.LENGTH_LONG).show();
+                            setStatus(status);
+                        }
 
-            transport.call(SOAP_ACTION, soapEnvelope);
-            resultString = (SoapPrimitive) soapEnvelope.getResponse();
-            String response = resultString.toString();
-            final Pattern acknowledgementPattern = Pattern.compile("<Acknowledgement>(.+?)</Acknowledgement>");
-            final Pattern countAckPattern = Pattern.compile("<CountAck>(.+?)</CountAck>");
-            final Matcher acknowledgementMatcher = acknowledgementPattern.matcher(response);
-            final Matcher countAckMatcher = countAckPattern.matcher(response);
-            acknowledgementMatcher.find();
-            countAckMatcher.find();
-            Log.i(TAG, "Response caught : " + response);
-            System.out.println("Acknowledgement Token  " +acknowledgementMatcher.group(1));
-            System.out.println("CountAck Token  " +countAckMatcher.group(1));
-            if(acknowledgementMatcher.group(1) == "True" && countAckMatcher.group(1) == "True")
-            {
-                Log.d(TAG,"Valid User... User not checked in yet");
-                status = "Valid Code";
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
 
-            }else if(acknowledgementMatcher.group(1) == "True" && countAckMatcher.group(1) == "False")
-            {
-                Log.d(TAG,"Valid User... User has checked in already");
-                status = "Already In";
-            }else
-            {
-                Log.d(TAG,"Invalid User !!!");
-                status = "Invalid Code";
+                    // Error handling
+                    System.out.println("Something went wrong!");
+                    Log.d(TAG, "Something went wrong!");
+                    status = "Error Encountered" + error.getMessage();
+                    setStatus(status);
+                    Log.d(TAG, error.getMessage());
+                    error.printStackTrace();
 
-            }
-//            statusView.setText(status);
+                }
+
+
+            }){
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    //  params.put("Content-Type", "application/json");
+                    params.put("Basic-Authorization", "AppUser:5222c123-936e-4d20-86d3-11354093bfdd");
+
+                    return params;
+                }
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    return body.toString().getBytes();
+                }
+
+                @Override
+                public String getBodyContentType() {
+                    return "application/json";
+                }
+
+            };
+
+            Volley.newRequestQueue(this).add(stringRequest);
+
         } catch (Exception ex) {
             Log.e(TAG, "Error: " + ex.getMessage());
         }
