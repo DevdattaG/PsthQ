@@ -124,7 +124,7 @@ public class ValidationPage extends ActionBarActivity {
     }
 
     public void calculate() {
-        String url = "http://192.168.2.11:80/PassT_WebService/api/Scan/CheckIsQRCodeValid";
+        String url = "http://54.149.90.101/Web.PassThrough.Service/api/Scan/CheckIsQRCodeValid";
         final JSONObject body = new JSONObject();
         try {
             body.put("TransId",code);
