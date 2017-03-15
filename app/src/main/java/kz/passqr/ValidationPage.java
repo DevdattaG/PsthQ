@@ -87,9 +87,7 @@ public class ValidationPage extends ActionBarActivity {
                                     System.exit(0);
                                 }
                             });
-
                             dialog.show();
-
     }
 
     private class AsyncCallWS extends AsyncTask<Void, Void, Void> {
@@ -114,9 +112,7 @@ public class ValidationPage extends ActionBarActivity {
             details = resultString.toString();
             statusView.invalidate();
         //    Toast.makeText(ValidationPage.this, "Response" + resultString.toString(), Toast.LENGTH_LONG).show();
-
         }
-
     }
 
     public void calculate() {
@@ -148,15 +144,15 @@ public class ValidationPage extends ActionBarActivity {
             Log.i(TAG, "Response caught : " + response);
             System.out.println("Acknowledgement Token  " +acknowledgementMatcher.group(1));
             System.out.println("CountAck Token  " +countAckMatcher.group(1));
-            if(acknowledgementMatcher.group(1) == "True" && countAckMatcher.group(1) == "True")
+            if(acknowledgementMatcher.group(1).toString().equals("True") && countAckMatcher.group(1).toString().equals("True"))
             {
                 Log.d(TAG,"Valid User... User not checked in yet");
                 status = "Valid Code";
 
-            }else if(acknowledgementMatcher.group(1) == "True" && countAckMatcher.group(1) == "False")
+            }else if(acknowledgementMatcher.group(1).toString().equals("True") && countAckMatcher.group(1).toString().equals("False"))
             {
                 Log.d(TAG,"Valid User... User has checked in already");
-                status = "Already In";
+                status = "Checked In";
             }else
             {
                 Log.d(TAG,"Invalid User !!!");

@@ -68,10 +68,6 @@ public class QRReader extends Activity{
 
                     }
                 }
-
-
-
-
             }
 
             @Override
