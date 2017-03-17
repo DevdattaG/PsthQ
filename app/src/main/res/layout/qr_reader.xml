@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="kz.passqr.QRReader">
+    tools:context=".MainActivity">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,13 +15,82 @@
         android:layout_marginLeft="16dp"
         android:layout_alignParentTop="true"
         />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:id="@+id/myButtonPanel"
+        >
+
+        <Button
+            android:id="@+id/barcodeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textAlignment="center"
+            android:background="#ED1651"
+            android:textColor="#ffffff"
+            android:fontFamily="@android:string/yes"
+            android:layout_below="@+id/textView"
+            android:onClick="showBarcodeCameraView"
+            android:text="Scan" />
+
+        <Button
+            android:id="@+id/manualButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textAlignment="center"
+            android:fontFamily="@android:string/yes"
+            android:onClick="showManualView"
+            android:layout_below="@+id/textView"
+            android:text="Manual" />
+
+        <Button
+            android:id="@+id/historyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textAlignment="center"
+            android:fontFamily="@android:string/yes"
+            android:layout_below="@+id/textView"
+            android:text="History" />
+    </RelativeLayout>
+
+
     <SurfaceView
         android:layout_width="640dp"
         android:layout_height="480dp"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/myButtonPanel"
         android:id="@+id/camera_view"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/myButtonPanel"
+        android:orientation="vertical"
+        android:id="@+id/manualCheck"
+        android:layout_marginTop="30dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Celsius" />
+
+        <EditText
+            android:id="@+id/cel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calculate" />
+    </LinearLayout>
 
 
     </RelativeLayout>

@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.content.ContextCompat;
@@ -28,8 +29,6 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
  */
 public class QRReader extends Activity{
     final Context context = this;
-
-
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private SurfaceView cameraView;
@@ -39,6 +38,7 @@ public class QRReader extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qr_reader);
+        findViewById(R.id.manualCheck).setVisibility(View.GONE);
 
         cameraView = (SurfaceView)findViewById(R.id.camera_view);
         barcodeInfo = (TextView)findViewById(R.id.code_info);
@@ -127,7 +127,6 @@ public class QRReader extends Activity{
                 }
             }
         });
-
     }
 
     @Override
@@ -135,6 +134,24 @@ public class QRReader extends Activity{
         super.onDestroy();
         cameraSource.release();
         barcodeDetector.release();
+    }
+
+    public void showBarcodeCameraView(View view){
+        findViewById(R.id.manualCheck).setVisibility(View.GONE);
+        findViewById(R.id.camera_view).setVisibility(View.VISIBLE);
+        Button scanButton = (Button)findViewById(R.id.barcodeButton);
+       // Button manualButton = (Button)findViewById(R.id.manualButton);
+//        scanButton.setBackgroundColor(Color.parseColor("#ED1651"));
+//        scanButton.setTextColor(Color.parseColor("ffffff"));
+    }
+
+    public void showManualView(View view){
+        findViewById(R.id.camera_view).setVisibility(View.GONE);
+        findViewById(R.id.manualCheck).setVisibility(View.VISIBLE);
+      //  Button scanButton = (Button)findViewById(R.id.barcodeButton);
+//        Button manualButton = (Button)findViewById(R.id.manualButton);
+//        manualButton.setBackgroundColor(Color.parseColor("#ED1651"));
+//        manualButton.setTextColor(Color.parseColor("ffffff"));
     }
 }
 
