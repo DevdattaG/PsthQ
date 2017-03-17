@@ -172,13 +172,18 @@ public class QRReader extends Activity{
     }
 
     public void scanManual(View view){
-        EditText barcodeVal = (EditText)findViewById(R.id.barcodeNum);
+        final EditText barcodeVal = (EditText)findViewById(R.id.barcodeNum);
         if(barcodeVal.getText().toString().equals(""))
         {
             Log.d("Scan Code : ","Invalid");
             Toast.makeText(QRReader.this, "Invalid Input", Toast.LENGTH_SHORT).show();
         }else{
             Log.d("Scan Code",barcodeVal.getText().toString());
+                    Intent validationPage = new Intent("android.intent.action.ValidationPage");
+                    validationPage.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    validationPage.putExtra("Code",barcodeVal.getText().toString());
+                    startActivity(validationPage);
+                   // System.exit(0);
         }
     }
 

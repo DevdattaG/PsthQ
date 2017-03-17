@@ -59,11 +59,10 @@ public class ValidationPage extends ActionBarActivity {
     }
 
     public void clickOK(View view){
-        Toast.makeText(ValidationPage.this, "Redirecting", Toast.LENGTH_SHORT).show();
-        Intent mainPage = new Intent("android.intent.action.MAINACTIVITY");
-
+        //Toast.makeText(ValidationPage.this, "Redirecting", Toast.LENGTH_SHORT).show();
+        Intent mainPage = new Intent("android.intent.action.QRReader");
         startActivity(mainPage);
-        System.exit(0);
+        //System.exit(0);
     }
 
     public void clickDetails(View view){
@@ -84,7 +83,7 @@ public class ValidationPage extends ActionBarActivity {
                                 @Override
                                 public void onClick(View v) {
                                     dialog.dismiss();
-                                    System.exit(0);
+                                    //System.exit(0);
                                 }
                             });
                             dialog.show();
