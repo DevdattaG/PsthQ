@@ -15,6 +15,7 @@ import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -140,18 +141,30 @@ public class QRReader extends Activity{
         findViewById(R.id.manualCheck).setVisibility(View.GONE);
         findViewById(R.id.camera_view).setVisibility(View.VISIBLE);
         Button scanButton = (Button)findViewById(R.id.barcodeButton);
-       // Button manualButton = (Button)findViewById(R.id.manualButton);
-//        scanButton.setBackgroundColor(Color.parseColor("#ED1651"));
-//        scanButton.setTextColor(Color.parseColor("ffffff"));
+        Button manualButton = (Button)findViewById(R.id.manualButton);
+        scanButton.setBackgroundColor(Color.parseColor("#ED1651"));
+        scanButton.setTextColor(Color.parseColor("#ffffff"));
+        manualButton.setBackgroundColor(Color.parseColor("#cccccc"));
+        manualButton.setTextColor(Color.parseColor("#000000"));
+
+        // For closing the keyboard if appears. Found to generate bugs while the executing. Found : 17th March 2017 6:54 PM
+//        InputMethodManager inputManager = (InputMethodManager)
+//                getSystemService(Context.INPUT_METHOD_SERVICE);
+//
+//        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+//                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     public void showManualView(View view){
         findViewById(R.id.camera_view).setVisibility(View.GONE);
         findViewById(R.id.manualCheck).setVisibility(View.VISIBLE);
-      //  Button scanButton = (Button)findViewById(R.id.barcodeButton);
-//        Button manualButton = (Button)findViewById(R.id.manualButton);
-//        manualButton.setBackgroundColor(Color.parseColor("#ED1651"));
-//        manualButton.setTextColor(Color.parseColor("ffffff"));
+        Button scanButton = (Button)findViewById(R.id.barcodeButton);
+        Button manualButton = (Button)findViewById(R.id.manualButton);
+        manualButton.setBackgroundColor(Color.parseColor("#ED1651"));
+        manualButton.setTextColor(Color.parseColor("#ffffff"));
+        scanButton.setBackgroundColor(Color.parseColor("#cccccc"));
+        scanButton.setTextColor(Color.parseColor("#000000"));
+
     }
 }
 
