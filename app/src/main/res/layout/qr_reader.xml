@@ -102,6 +102,7 @@
                 android:background="#ED1651"
                 android:layout_alignParentLeft="true"
                 android:textColor="#ffffff"
+                android:onClick="scanManual"
                 android:text="Validate" />
 
             <Button
@@ -111,6 +112,7 @@
                 android:background="#ED1651"
                 android:layout_alignParentRight="true"
                 android:textColor="#ffffff"
+                android:onClick="clearManual"
                 android:text="Clear" />
         </RelativeLayout>
 

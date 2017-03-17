@@ -11,14 +11,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -146,6 +149,8 @@ public class QRReader extends Activity{
         scanButton.setTextColor(Color.parseColor("#ffffff"));
         manualButton.setBackgroundColor(Color.parseColor("#cccccc"));
         manualButton.setTextColor(Color.parseColor("#000000"));
+        EditText barcodeVal = (EditText)findViewById(R.id.barcodeNum);
+        barcodeVal.setText("");
 
         // For closing the keyboard if appears. Found to generate bugs while the executing. Found : 17th March 2017 6:54 PM
 //        InputMethodManager inputManager = (InputMethodManager)
@@ -164,7 +169,22 @@ public class QRReader extends Activity{
         manualButton.setTextColor(Color.parseColor("#ffffff"));
         scanButton.setBackgroundColor(Color.parseColor("#cccccc"));
         scanButton.setTextColor(Color.parseColor("#000000"));
+    }
 
+    public void scanManual(View view){
+        EditText barcodeVal = (EditText)findViewById(R.id.barcodeNum);
+        if(barcodeVal.getText().toString().equals(""))
+        {
+            Log.d("Scan Code : ","Invalid");
+            Toast.makeText(QRReader.this, "Invalid Input", Toast.LENGTH_SHORT).show();
+        }else{
+            Log.d("Scan Code",barcodeVal.getText().toString());
+        }
+    }
+
+    public void clearManual(View view){
+        EditText barcodeVal = (EditText)findViewById(R.id.barcodeNum);
+        barcodeVal.setText("");
     }
 }
 
