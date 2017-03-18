@@ -57,6 +57,7 @@
             android:background="#cccccc"
             android:fontFamily="@android:string/yes"
             android:layout_below="@+id/textView"
+            android:onClick="showHistoryView"
             android:text="History" />
     </RelativeLayout>
 

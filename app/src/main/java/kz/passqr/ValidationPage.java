@@ -128,9 +128,7 @@ public class ValidationPage extends ActionBarActivity {
             SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             soapEnvelope.dotNet = true;
             soapEnvelope.setOutputSoapObject(Request);
-
             HttpTransportSE transport = new HttpTransportSE(URL);
-
             transport.call(SOAP_ACTION, soapEnvelope);
             resultString = (SoapPrimitive) soapEnvelope.getResponse();
             String response = resultString.toString();

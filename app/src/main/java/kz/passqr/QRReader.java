@@ -191,5 +191,10 @@ public class QRReader extends Activity{
         EditText barcodeVal = (EditText)findViewById(R.id.barcodeNum);
         barcodeVal.setText("");
     }
+
+    public void showHistoryView(View view)
+    {
+        startActivity(new Intent("android.intent.action.HistoryActivity"));
+    }
 }
 
