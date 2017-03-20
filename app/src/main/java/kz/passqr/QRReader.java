@@ -43,6 +43,7 @@ public class QRReader extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qr_reader);
         findViewById(R.id.manualCheck).setVisibility(View.GONE);
+        findViewById(R.id.troubleshoot).setVisibility(View.GONE);
 
         cameraView = (SurfaceView)findViewById(R.id.camera_view);
         barcodeInfo = (TextView)findViewById(R.id.code_info);
@@ -142,13 +143,17 @@ public class QRReader extends Activity{
 
     public void showBarcodeCameraView(View view){
         findViewById(R.id.manualCheck).setVisibility(View.GONE);
+        findViewById(R.id.troubleshoot).setVisibility(View.GONE);
         findViewById(R.id.camera_view).setVisibility(View.VISIBLE);
         Button scanButton = (Button)findViewById(R.id.barcodeButton);
         Button manualButton = (Button)findViewById(R.id.manualButton);
+        Button troubleshootButton = (Button)findViewById(R.id.troubleshootButton);
         scanButton.setBackgroundColor(Color.parseColor("#ED1651"));
         scanButton.setTextColor(Color.parseColor("#ffffff"));
         manualButton.setBackgroundColor(Color.parseColor("#cccccc"));
         manualButton.setTextColor(Color.parseColor("#000000"));
+        troubleshootButton.setBackgroundColor(Color.parseColor("#cccccc"));
+        troubleshootButton.setTextColor(Color.parseColor("#000000"));
         EditText barcodeVal = (EditText)findViewById(R.id.barcodeNum);
         barcodeVal.setText("");
 
@@ -162,13 +167,34 @@ public class QRReader extends Activity{
 
     public void showManualView(View view){
         findViewById(R.id.camera_view).setVisibility(View.GONE);
+        findViewById(R.id.troubleshoot).setVisibility(View.GONE);
         findViewById(R.id.manualCheck).setVisibility(View.VISIBLE);
         Button scanButton = (Button)findViewById(R.id.barcodeButton);
         Button manualButton = (Button)findViewById(R.id.manualButton);
+        Button troubleshootButton = (Button)findViewById(R.id.troubleshootButton);
         manualButton.setBackgroundColor(Color.parseColor("#ED1651"));
         manualButton.setTextColor(Color.parseColor("#ffffff"));
         scanButton.setBackgroundColor(Color.parseColor("#cccccc"));
         scanButton.setTextColor(Color.parseColor("#000000"));
+        troubleshootButton.setBackgroundColor(Color.parseColor("#cccccc"));
+        troubleshootButton.setTextColor(Color.parseColor("#000000"));
+    }
+
+    public void showTroubleshootView(View view)
+    {
+        findViewById(R.id.camera_view).setVisibility(View.GONE);
+        findViewById(R.id.troubleshoot).setVisibility(View.VISIBLE);
+        findViewById(R.id.manualCheck).setVisibility(View.GONE);
+        Button scanButton = (Button)findViewById(R.id.barcodeButton);
+        Button manualButton = (Button)findViewById(R.id.manualButton);
+        Button troubleshootButton = (Button)findViewById(R.id.troubleshootButton);
+        troubleshootButton.setBackgroundColor(Color.parseColor("#ED1651"));
+        troubleshootButton.setTextColor(Color.parseColor("#ffffff"));
+        scanButton.setBackgroundColor(Color.parseColor("#cccccc"));
+        scanButton.setTextColor(Color.parseColor("#000000"));
+        manualButton.setBackgroundColor(Color.parseColor("#cccccc"));
+        manualButton.setTextColor(Color.parseColor("#000000"));
+
     }
 
     public void scanManual(View view){
@@ -192,9 +218,32 @@ public class QRReader extends Activity{
         barcodeVal.setText("");
     }
 
-    public void showHistoryView(View view)
+    public void troubleshootRoutine(View view)
     {
-        startActivity(new Intent("android.intent.action.HistoryActivity"));
+        final EditText barcodeVal = (EditText)findViewById(R.id.barcodeNumber);
+        if(barcodeVal.getText().toString().equals(""))
+        {
+            Log.d("Scan Code : ","Invalid");
+            Toast.makeText(QRReader.this, "Invalid Input", Toast.LENGTH_SHORT).show();
+        }else{
+            Log.d("Scan Code",barcodeVal.getText().toString());
+            Intent troubleshootPage = new Intent("android.intent.action.HistoryActivity");
+            troubleshootPage.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            troubleshootPage.putExtra("troubleshootCode",barcodeVal.getText().toString());
+            startActivity(troubleshootPage);
+            // System.exit(0);
+        }
     }
+
+    public void clearTroubleshoot(View view)
+    {
+        EditText barcodeVal = (EditText)findViewById(R.id.barcodeNumber);
+        barcodeVal.setText("");
+    }
+
+//    public void showHistoryView(View view)
+//    {
+//        startActivity(new Intent("android.intent.action.HistoryActivity"));
+//    }
 }
 

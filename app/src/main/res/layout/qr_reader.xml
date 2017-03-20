@@ -49,7 +49,7 @@
             android:text="Manual" />
 
         <Button
-            android:id="@+id/historyButton"
+            android:id="@+id/troubleshootButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -57,8 +57,8 @@
             android:background="#cccccc"
             android:fontFamily="@android:string/yes"
             android:layout_below="@+id/textView"
-            android:onClick="showHistoryView"
-            android:text="History" />
+            android:onClick="showTroubleshootView"
+            android:text="Troubleshoot" />
     </RelativeLayout>
 
 
@@ -117,6 +117,53 @@
                 android:text="Clear" />
         </RelativeLayout>
 
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/myButtonPanel"
+        android:orientation="vertical"
+        android:id="@+id/troubleshoot"
+        android:layout_marginTop="30dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="Enter Barcode To Troubleshoot" />
+
+        <EditText
+            android:id="@+id/barcodeNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@+id/barcodeNumber"
+            android:layout_marginTop="30dp">
+
+            <Button
+                android:id="@+id/troubleshootSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ED1651"
+                android:layout_alignParentLeft="true"
+                android:textColor="#ffffff"
+                android:onClick="troubleshootRoutine"
+                android:text="Troubleshoot" />
+
+            <Button
+                android:id="@+id/troubleshootClear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ED1651"
+                android:layout_alignParentRight="true"
+                android:textColor="#ffffff"
+                android:onClick="clearTroubleshoot"
+                android:text="Clear" />
+        </RelativeLayout>
     </LinearLayout>
 
 

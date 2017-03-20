@@ -1,6 +1,7 @@
 package kz.passqr;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,13 +35,14 @@ public class HistoryActivity extends Activity {
     static TextView srNo;
     static TextView venueNum;
     static TextView venueName;
+    String troubleshootCode ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history_screen);
         tl=(TableLayout)findViewById(R.id.TableLayout01);
-
+        troubleshootCode = getIntent().getStringExtra("troubleshootCode");
         AsyncCallWS task = new AsyncCallWS();
         task.execute();
         Log.d("Done"," Done with logging asych");
@@ -98,12 +100,6 @@ public class HistoryActivity extends Activity {
         }
     }
 
-    public void addNewRow(View view)
-    {
-
-
-    }
-
     public String fetchData() {
         String SOAP_ACTION = "http://tempuri.org/GetVenueDetails";
         String METHOD_NAME = "GetVenueDetails";
@@ -151,5 +147,15 @@ public class HistoryActivity extends Activity {
             Log.e("Response", "Error: " + ex.getMessage());
         }
         return response;
+    }
+
+    public void troubleshootScan(View view)
+    {
+
+    }
+
+    public void cancelTroubleshoot(View view)
+    {
+        startActivity(new Intent("android.intent.action.QRReader"));
     }
 }
