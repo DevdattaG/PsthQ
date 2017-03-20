@@ -3,10 +3,14 @@ package kz.passqr;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DigitalClock;
@@ -32,6 +36,7 @@ import java.util.regex.Pattern;
 public class HistoryActivity extends Activity {
     static TableLayout tl;
     static TableRow tr;
+    static TextView title;
     static TextView srNo;
     static TextView barcode;
     static TextView lastScanned;
@@ -43,6 +48,8 @@ public class HistoryActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history_screen);
+        Button allowButton = (Button)findViewById(R.id.troubleshootScan);
+        allowButton.setVisibility(View.GONE);
         tl=(TableLayout)findViewById(R.id.TableLayout01);
         troubleshootCode = getIntent().getStringExtra("troubleshootCode");
         AsyncCallWS task = new AsyncCallWS();
@@ -55,28 +62,86 @@ public class HistoryActivity extends Activity {
         {
             JSONArray jr = new JSONArray(tableData.toString());
             Log.d("Array Length : ", jr.toString());
-            for(int i = 0; i< jr.length(); i++)
+            if(jr.length()>0)
             {
+                TableRow.LayoutParams params = new TableRow.LayoutParams();
+                tr=new TableRow(this);
+                tr.setGravity(Gravity.CENTER_HORIZONTAL);
+                tr.setLayoutParams(params);
+                title=new TextView(this);
+                title.setTextSize(TypedValue.COMPLEX_UNIT_DIP,17);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setGravity(Gravity.CENTER);
+                title.setText("Troubleshoot");
+                tl.addView(tr,new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
+                tr.addView(title);
                 tr=new TableRow(this);
                 srNo= new TextView(this);
                 barcode= new TextView(this);
                 lastScanned = new TextView(this);
                 gate= new TextView(this);
                 name = new TextView(this);
-                String s = jr.getString(i);
-                JSONObject js = (JSONObject)jr.getJSONObject(i);
-                srNo.setText(String.valueOf(i));
-                barcode.setText(js.getString("Barcode"));
-                lastScanned.setText(js.getString("LastScanned"));
-                gate.setText(js.getString("Gate"));
-                name.setText(js.getString("Name"));
+                srNo.setText("Sr. No.");
+                srNo.setTypeface(null, Typeface.BOLD);
+                srNo.setWidth(50);
+                srNo.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT));
+                //srNo.setGravity(Gravity.CENTER);
+                barcode.setText("Barcode");
+                barcode.setTypeface(null, Typeface.BOLD);
+                //barcode.setGravity(Gravity.CENTER);
+                lastScanned.setText("Last Scanned");
+                lastScanned.setTypeface(null, Typeface.BOLD);
+                //lastScanned.setGravity(Gravity.CENTER);
+                gate.setText("Gate");
+                gate.setTypeface(null, Typeface.BOLD);
+                //gate.setGravity(Gravity.CENTER);
+                name.setText("Customer Name");
+                name.setTypeface(null, Typeface.BOLD);
+                //name.setGravity(Gravity.CENTER);
                 tr.addView(srNo);
                 tr.addView(barcode);
                 tr.addView(lastScanned);
                 tr.addView(gate);
                 tr.addView(name);
                 tl.addView(tr,new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
+                Button allowButton = (Button)findViewById(R.id.troubleshootScan);
+                allowButton.setVisibility(View.VISIBLE);
+                for(int i = 0; i< jr.length(); i++)
+                {
+                    tr=new TableRow(this);
+                    srNo= new TextView(this);
+                 //   srNo.setTypeface(null, Typeface.BOLD);
+                 //   srNo.setGravity(Gravity.CENTER);
+                    barcode= new TextView(this);
+                  //  barcode.setTypeface(null, Typeface.BOLD);
+                   // barcode.setGravity(Gravity.CENTER);
+                    lastScanned = new TextView(this);
+                   // lastScanned.setTypeface(null, Typeface.BOLD);
+                    //lastScanned.setGravity(Gravity.CENTER);
+                    gate= new TextView(this);
+                    //gate.setTypeface(null, Typeface.BOLD);
+                    //gate.setGravity(Gravity.CENTER);
+                    name = new TextView(this);
+                    //name.setTypeface(null, Typeface.BOLD);
+                    //name.setGravity(Gravity.CENTER);
+
+                    String s = jr.getString(i);
+                    JSONObject js = (JSONObject)jr.getJSONObject(i);
+                    srNo.setText(String.valueOf(i));
+                    srNo.setWidth(50);
+                    barcode.setText(js.getString("Barcode"));
+                    lastScanned.setText(js.getString("LastScanned"));
+                    gate.setText(js.getString("Gate"));
+                    name.setText(js.getString("Name"));
+                    tr.addView(srNo);
+                    tr.addView(barcode);
+                    tr.addView(lastScanned);
+                    tr.addView(gate);
+                    tr.addView(name);
+                    tl.addView(tr,new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
+                }
             }
+
         }catch(Exception ex)
         {
             Log.d("JSONException",ex.toString());

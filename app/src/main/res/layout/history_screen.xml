@@ -11,7 +11,11 @@
 
     <ScrollView android:id="@+id/ScrollView01" android:layout_width="wrap_content" android:layout_height="wrap_content">
 
-        <TableLayout android:id="@+id/TableLayout01" android:layout_width="fill_parent" android:layout_height="wrap_content" android:stretchColumns="0">
+        <TableLayout android:id="@+id/TableLayout01"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
         </TableLayout>
     </ScrollView>
     <RelativeLayout
@@ -26,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#ED1651"
+            android:visibility="gone"
             android:layout_alignParentLeft="true"
             android:textColor="#ffffff"
             android:onClick="troubleshootScan"
