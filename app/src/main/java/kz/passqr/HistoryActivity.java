@@ -40,14 +40,41 @@ public class HistoryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history_screen);
         tl=(TableLayout)findViewById(R.id.TableLayout01);
-        tr=new TableRow(this);
-        srNo= new TextView(this);
-        venueNum= new TextView(this);
-        venueName = new TextView(this);
+
         AsyncCallWS task = new AsyncCallWS();
         task.execute();
         Log.d("Done"," Done with logging asych");
        // fetchData();
+    }
+
+    public void showTable(String tableData)
+    {
+        try
+        {
+            JSONArray jr = new JSONArray(tableData.toString());
+            Log.d("Array Length : ", jr.toString());
+            for(int i = 0; i< jr.length(); i++)
+            {
+                tr=new TableRow(this);
+                srNo= new TextView(this);
+                venueNum= new TextView(this);
+                venueName = new TextView(this);
+                String s = jr.getString(i);
+                JSONObject js = (JSONObject)jr.getJSONObject(i);
+                srNo.setText(String.valueOf(i));
+                venueNum.setText(js.getString("VenueId"));
+                venueName.setText(js.getString("Venue"));
+                tr.addView(srNo);
+                tr.addView(venueNum);
+                tr.addView(venueName);
+                tl.addView(tr,new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
+                Log.d("asdf"," Json Fetched");
+            }
+        }catch(Exception ex)
+        {
+            Log.d("JSONException",ex.toString());
+        }
+
     }
 
     private class AsyncCallWS extends AsyncTask<Void, String, String> {
@@ -67,27 +94,7 @@ public class HistoryActivity extends Activity {
         @Override
         protected void onPostExecute(String result) {
             Log.i("onPostExecute", result.toString());
-            try
-            {
-                JSONArray jr = new JSONArray(result.toString());
-                Log.d("Array Length : ", jr.toString());
-                for(int i = 0; i< jr.length(); i++)
-                {
-                    String s = jr.getString(i);
-                    JSONObject js = (JSONObject)jr.getJSONObject(i);
-                    srNo.setText(String.valueOf(i));
-                    venueNum.setText(js.getString("VenueId"));
-                    venueName.setText(js.getString("Venue"));
-                    tr.addView(srNo);
-                    tr.addView(venueNum);
-                    tr.addView(venueName);
-                    tl.addView(tr,new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
-                    Log.d("asdf"," Json Fetched");
-                }
-            }catch(Exception ex)
-            {
-                Log.d("JSONException",ex.toString());
-            }
+            showTable(result.toString());
         }
     }
 
