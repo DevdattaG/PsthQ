@@ -33,8 +33,10 @@ public class HistoryActivity extends Activity {
     static TableLayout tl;
     static TableRow tr;
     static TextView srNo;
-    static TextView venueNum;
-    static TextView venueName;
+    static TextView barcode;
+    static TextView lastScanned;
+    static TextView gate;
+    static TextView name;
     String troubleshootCode ="";
 
     @Override
@@ -45,8 +47,6 @@ public class HistoryActivity extends Activity {
         troubleshootCode = getIntent().getStringExtra("troubleshootCode");
         AsyncCallWS task = new AsyncCallWS();
         task.execute();
-        Log.d("Done"," Done with logging asych");
-       // fetchData();
     }
 
     public void showTable(String tableData)
@@ -59,18 +59,23 @@ public class HistoryActivity extends Activity {
             {
                 tr=new TableRow(this);
                 srNo= new TextView(this);
-                venueNum= new TextView(this);
-                venueName = new TextView(this);
+                barcode= new TextView(this);
+                lastScanned = new TextView(this);
+                gate= new TextView(this);
+                name = new TextView(this);
                 String s = jr.getString(i);
                 JSONObject js = (JSONObject)jr.getJSONObject(i);
                 srNo.setText(String.valueOf(i));
-                venueNum.setText(js.getString("VenueId"));
-                venueName.setText(js.getString("Venue"));
+                barcode.setText(js.getString("Barcode"));
+                lastScanned.setText(js.getString("LastScanned"));
+                gate.setText(js.getString("Gate"));
+                name.setText(js.getString("Name"));
                 tr.addView(srNo);
-                tr.addView(venueNum);
-                tr.addView(venueName);
+                tr.addView(barcode);
+                tr.addView(lastScanned);
+                tr.addView(gate);
+                tr.addView(name);
                 tl.addView(tr,new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
-                Log.d("asdf"," Json Fetched");
             }
         }catch(Exception ex)
         {
@@ -101,16 +106,15 @@ public class HistoryActivity extends Activity {
     }
 
     public String fetchData() {
-        String SOAP_ACTION = "http://tempuri.org/GetVenueDetails";
-        String METHOD_NAME = "GetVenueDetails";
+        String SOAP_ACTION = "http://tempuri.org/GetBarcodeInfo";
+        String METHOD_NAME = "GetBarcodeInfo";
         String NAMESPACE = "http://tempuri.org/";
-        String URL = "http://54.149.90.101/KzWebservice/barcodescanner.asmx";
+        String URL = "http://54.149.90.101/KzWebservice1/BarCodeScanner.asmx";
         String response = "";
         try {
-            // String abc = "4444";
             SoapObject Request = new SoapObject(NAMESPACE, METHOD_NAME);
             // Toast.makeText(ValidationPage.this, "Response" + code, Toast.LENGTH_LONG).show();
-            //Request.addProperty("barcode", "9876543");
+            Request.addProperty("Barcode", troubleshootCode);
             SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             soapEnvelope.dotNet = true;
             soapEnvelope.setOutputSoapObject(Request);
@@ -118,31 +122,7 @@ public class HistoryActivity extends Activity {
             transport.call(SOAP_ACTION, soapEnvelope);
             SoapPrimitive resultString = (SoapPrimitive) soapEnvelope.getResponse();
             response = resultString.toString();
-//            final Pattern acknowledgementPattern = Pattern.compile("<Acknowledgement>(.+?)</Acknowledgement>");
-//            final Pattern countAckPattern = Pattern.compile("<CountAck>(.+?)</CountAck>");
-//            final Matcher acknowledgementMatcher = acknowledgementPattern.matcher(response);
-//            final Matcher countAckMatcher = countAckPattern.matcher(response);
-//            acknowledgementMatcher.find();
-//            countAckMatcher.find();
-//            Log.i("Response", "Response caught : " + response);
-//            System.out.println("Acknowledgement Token  " +acknowledgementMatcher.group(1));
-//            System.out.println("CountAck Token  " +countAckMatcher.group(1));
-//            if(acknowledgementMatcher.group(1).toString().equals("True") && countAckMatcher.group(1).toString().equals("True"))
-//            {
-//                Log.d("Response","Valid User... User not checked in yet");
-//                //status = "Valid Code";
-//
-//            }else if(acknowledgementMatcher.group(1).toString().equals("True") && countAckMatcher.group(1).toString().equals("False"))
-//            {
-//                Log.d("Response","Valid User... User has checked in already");
-//               // status = "Checked In";
-//            }else
-//            {
-//                Log.d("Response","Invalid User !!!");
-//               // status = "Invalid Code";
-//
-//            }
-//            statusView.setText(status);
+            Log.d("Response catched", response);
         } catch (Exception ex) {
             Log.e("Response", "Error: " + ex.getMessage());
         }
