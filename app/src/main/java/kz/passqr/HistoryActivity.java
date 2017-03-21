@@ -47,6 +47,7 @@ public class HistoryActivity extends Activity {
     static TextView gate;
     static TextView name;
     String troubleshootCode ="";
+    String latestBarcode = "";
     TextView titleText;
 
     @Override
@@ -120,7 +121,6 @@ public class HistoryActivity extends Activity {
                 tl.addView(tr,new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
                 Button allowButton = (Button)findViewById(R.id.troubleshootScan);
                 allowButton.setVisibility(View.VISIBLE);
-                String latestBarcode = "";
                 for(int i = 0; i< jr.length(); i++)
                 {
                     tr=new TableRow(this);
@@ -266,7 +266,11 @@ public class HistoryActivity extends Activity {
 
     public void troubleshootScan(View view)
     {
-
+        Intent validationPage = new Intent("android.intent.action.ValidationPage");
+        validationPage.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        validationPage.putExtra("Code",latestBarcode);
+        startActivity(validationPage);
+        finish();
     }
 
     public void cancelTroubleshoot(View view)

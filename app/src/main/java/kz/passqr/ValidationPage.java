@@ -138,7 +138,7 @@ public class ValidationPage extends ActionBarActivity {
         String SOAP_ACTION = "http://tempuri.org/BarcodeStatus";
         String METHOD_NAME = "BarcodeStatus";
         String NAMESPACE = "http://tempuri.org/";
-        String URL = "http://54.149.90.101/KzWebservice/barcodescanner.asmx";
+        String URL = "http://54.149.90.101/KzWebservice1/barcodescanner.asmx";
 
         try {
            // String abc = "4444";
