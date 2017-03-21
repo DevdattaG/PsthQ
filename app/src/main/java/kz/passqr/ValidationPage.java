@@ -64,6 +64,7 @@ public class ValidationPage extends ActionBarActivity {
         //Toast.makeText(ValidationPage.this, "Redirecting", Toast.LENGTH_SHORT).show();
         Intent mainPage = new Intent("android.intent.action.QRReader");
         startActivity(mainPage);
+        finish();
         //System.exit(0);
     }
 

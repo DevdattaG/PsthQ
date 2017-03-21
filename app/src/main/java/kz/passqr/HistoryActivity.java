@@ -142,23 +142,38 @@ public class HistoryActivity extends Activity {
 
                     String s = jr.getString(i);
                     JSONObject js = (JSONObject)jr.getJSONObject(i);
+                    barcode.setText(js.getString("Barcode"));
+                    lastScanned.setText(js.getString("LastScanned"));
+                    gate.setText(js.getString("Gate"));
+                    name.setText(js.getString("Name"));
                    // srNo.setText(String.valueOf(i));
                     //srNo.setWidth(50);
-                    barcode.setText(js.getString("Barcode"));
-                    barcode.setTextColor(Color.BLACK);
-                    lastScanned.setText(js.getString("LastScanned"));
-                    lastScanned.setTextColor(Color.BLACK);
-                    gate.setText(js.getString("Gate"));
-                    gate.setTextColor(Color.BLACK);
-                    name.setText(js.getString("Name"));
-                    name.setTextColor(Color.BLACK);
+                    if(js.getString("Barcode").equals(troubleshootCode))
+                    {
+                        barcode.setTextColor(Color.RED);
+                        lastScanned.setTextColor(Color.RED);
+                        gate.setTextColor(Color.RED);
+                        name.setTextColor(Color.RED);
+                    }else if(i == 0)
+                    {
+                        barcode.setTextColor(Color.GREEN);
+                        lastScanned.setTextColor(Color.GREEN);
+                        gate.setTextColor(Color.GREEN);
+                        name.setTextColor(Color.GREEN);
+                    }else
+                    {
+                        barcode.setTextColor(Color.BLACK);
+                        lastScanned.setTextColor(Color.BLACK);
+                        gate.setTextColor(Color.BLACK);
+                        name.setTextColor(Color.BLACK);
+                    }
                     //tr.addView(srNo);
                     tr.addView(barcode);
                     tr.addView(lastScanned);
                     tr.addView(gate);
                     tr.addView(name);
                     tl.addView(tr,new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
-                    if( i == jr.length()-1)
+                    if( i == 0)
                     {
                         latestBarcode = js.getString("Barcode");
                     }
@@ -257,5 +272,6 @@ public class HistoryActivity extends Activity {
     public void cancelTroubleshoot(View view)
     {
         startActivity(new Intent("android.intent.action.QRReader"));
+        finish();
     }
 }

@@ -104,7 +104,7 @@ public class QRReader extends Activity{
                             validationPage.putExtra("Code",barcodes.valueAt(0).displayValue);
 
                             startActivity(validationPage);
-                            System.exit(0);
+                           // finish();
 //                            final Dialog dialog = new Dialog(context);
 //                            dialog.setContentView(R.layout.qr_dialog);
 //                            dialog.setTitle("PassThru");
@@ -209,6 +209,7 @@ public class QRReader extends Activity{
                     validationPage.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     validationPage.putExtra("Code",barcodeVal.getText().toString());
                     startActivity(validationPage);
+                  //  finish();
                    // System.exit(0);
         }
     }
@@ -231,6 +232,7 @@ public class QRReader extends Activity{
             troubleshootPage.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             troubleshootPage.putExtra("troubleshootCode",barcodeVal.getText().toString());
             startActivity(troubleshootPage);
+            //finish();
             // System.exit(0);
         }
     }
