@@ -36,8 +36,8 @@ import java.util.regex.Pattern;
 public class HistoryActivity extends Activity {
     static TableLayout tl;
     static TableRow tr;
-    static TextView title;
-    static TextView srNo;
+    //static TextView title;
+   // static TextView srNo;
     static TextView barcode;
     static TextView lastScanned;
     static TextView gate;
@@ -64,27 +64,27 @@ public class HistoryActivity extends Activity {
             Log.d("Array Length : ", jr.toString());
             if(jr.length()>0)
             {
-                TableRow.LayoutParams params = new TableRow.LayoutParams();
+                //TableRow.LayoutParams params = new TableRow.LayoutParams();
+//                tr=new TableRow(this);
+//                //tr.setGravity(Gravity.CENTER_HORIZONTAL);
+//                tr.setLayoutParams(params);
+//                title=new TextView(this);
+//                title.setTextSize(TypedValue.COMPLEX_UNIT_DIP,12);
+//                title.setTypeface(null, Typeface.BOLD);
+//                title.setGravity(Gravity.CENTER);
+//                title.setText("Troubleshoot");
+//                tl.addView(tr,new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
+       //         tr.addView(title);
                 tr=new TableRow(this);
-                tr.setGravity(Gravity.CENTER_HORIZONTAL);
-                tr.setLayoutParams(params);
-                title=new TextView(this);
-                title.setTextSize(TypedValue.COMPLEX_UNIT_DIP,17);
-                title.setTypeface(null, Typeface.BOLD);
-                title.setGravity(Gravity.CENTER);
-                title.setText("Troubleshoot");
-                tl.addView(tr,new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
-                tr.addView(title);
-                tr=new TableRow(this);
-                srNo= new TextView(this);
+                //srNo= new TextView(this);
                 barcode= new TextView(this);
                 lastScanned = new TextView(this);
                 gate= new TextView(this);
                 name = new TextView(this);
-                srNo.setText("Sr. No.");
-                srNo.setTypeface(null, Typeface.BOLD);
-                srNo.setWidth(50);
-                srNo.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT));
+//                srNo.setText("Sr. No.");
+//                srNo.setTypeface(null, Typeface.BOLD);
+//                srNo.setWidth(50);
+//                srNo.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT));
                 //srNo.setGravity(Gravity.CENTER);
                 barcode.setText("Barcode");
                 barcode.setTypeface(null, Typeface.BOLD);
@@ -98,7 +98,7 @@ public class HistoryActivity extends Activity {
                 name.setText("Customer Name");
                 name.setTypeface(null, Typeface.BOLD);
                 //name.setGravity(Gravity.CENTER);
-                tr.addView(srNo);
+               // tr.addView(srNo);
                 tr.addView(barcode);
                 tr.addView(lastScanned);
                 tr.addView(gate);
@@ -109,7 +109,7 @@ public class HistoryActivity extends Activity {
                 for(int i = 0; i< jr.length(); i++)
                 {
                     tr=new TableRow(this);
-                    srNo= new TextView(this);
+                 //   srNo= new TextView(this);
                  //   srNo.setTypeface(null, Typeface.BOLD);
                  //   srNo.setGravity(Gravity.CENTER);
                     barcode= new TextView(this);
@@ -127,13 +127,13 @@ public class HistoryActivity extends Activity {
 
                     String s = jr.getString(i);
                     JSONObject js = (JSONObject)jr.getJSONObject(i);
-                    srNo.setText(String.valueOf(i));
-                    srNo.setWidth(50);
+                   // srNo.setText(String.valueOf(i));
+                    //srNo.setWidth(50);
                     barcode.setText(js.getString("Barcode"));
                     lastScanned.setText(js.getString("LastScanned"));
                     gate.setText(js.getString("Gate"));
                     name.setText(js.getString("Name"));
-                    tr.addView(srNo);
+                    //tr.addView(srNo);
                     tr.addView(barcode);
                     tr.addView(lastScanned);
                     tr.addView(gate);
