@@ -91,15 +91,19 @@ public class HistoryActivity extends Activity {
                 //srNo.setGravity(Gravity.CENTER);
                 barcode.setText("Barcode");
                 barcode.setTypeface(null, Typeface.BOLD);
+                barcode.setTextColor(Color.BLACK);
                 //barcode.setGravity(Gravity.CENTER);
                 lastScanned.setText("Last Scanned");
                 lastScanned.setTypeface(null, Typeface.BOLD);
+                lastScanned.setTextColor(Color.BLACK);
                 //lastScanned.setGravity(Gravity.CENTER);
                 gate.setText("Gate");
                 gate.setTypeface(null, Typeface.BOLD);
+                gate.setTextColor(Color.BLACK);
                 //gate.setGravity(Gravity.CENTER);
                 name.setText("Customer Name");
                 name.setTypeface(null, Typeface.BOLD);
+                name.setTextColor(Color.BLACK);
                 //name.setGravity(Gravity.CENTER);
                // tr.addView(srNo);
                 tr.addView(barcode);
@@ -134,9 +138,13 @@ public class HistoryActivity extends Activity {
                    // srNo.setText(String.valueOf(i));
                     //srNo.setWidth(50);
                     barcode.setText(js.getString("Barcode"));
+                    barcode.setTextColor(Color.BLACK);
                     lastScanned.setText(js.getString("LastScanned"));
+                    lastScanned.setTextColor(Color.BLACK);
                     gate.setText(js.getString("Gate"));
+                    gate.setTextColor(Color.BLACK);
                     name.setText(js.getString("Name"));
+                    name.setTextColor(Color.BLACK);
                     //tr.addView(srNo);
                     tr.addView(barcode);
                     tr.addView(lastScanned);
@@ -149,10 +157,10 @@ public class HistoryActivity extends Activity {
                     }
                 }
                 if(!latestBarcode.equals(""))
-                titleText.setText("Allow " + troubleshootCode + " to be mapped to " + latestBarcode);
+                titleText.setText("Allow " + troubleshootCode + " to be scanned as " + latestBarcode + " ?");
             }else
             {
-                titleText.setText("No records found associated with this barcode");
+                titleText.setText("No records found associated with barcode "+troubleshootCode);
             }
 
         }catch(Exception ex)
