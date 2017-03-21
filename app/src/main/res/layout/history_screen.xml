@@ -34,6 +34,35 @@
             android:stretchColumns="*">
         </TableLayout>
     </ScrollView>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="#ED1651"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/statusMessage"
+            android:layout_weight="0.16"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:textIsSelectable="false"
+            android:layout_margin="20dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="20dp"
+        android:background="#ED1651"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -60,6 +89,6 @@
             android:layout_alignParentRight="true"
             android:textColor="#ffffff"
             android:onClick="cancelTroubleshoot"
-            android:text="Cancel" />
+            android:text="Back" />
     </RelativeLayout>
 </LinearLayout>

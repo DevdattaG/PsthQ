@@ -49,6 +49,8 @@ public class HistoryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history_screen);
         Button allowButton = (Button)findViewById(R.id.troubleshootScan);
+        TextView title = (TextView)findViewById(R.id.textView2);
+        title.setText("Troubleshoot");
         allowButton.setVisibility(View.GONE);
         tl=(TableLayout)findViewById(R.id.TableLayout01);
         troubleshootCode = getIntent().getStringExtra("troubleshootCode");
@@ -58,6 +60,7 @@ public class HistoryActivity extends Activity {
 
     public void showTable(String tableData)
     {
+        TextView titleText = (TextView)findViewById(R.id.statusMessage);
         try
         {
             JSONArray jr = new JSONArray(tableData.toString());
@@ -106,6 +109,7 @@ public class HistoryActivity extends Activity {
                 tl.addView(tr,new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
                 Button allowButton = (Button)findViewById(R.id.troubleshootScan);
                 allowButton.setVisibility(View.VISIBLE);
+                String latestBarcode = "";
                 for(int i = 0; i< jr.length(); i++)
                 {
                     tr=new TableRow(this);
@@ -139,7 +143,16 @@ public class HistoryActivity extends Activity {
                     tr.addView(gate);
                     tr.addView(name);
                     tl.addView(tr,new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
+                    if( i == jr.length()-1)
+                    {
+                        latestBarcode = js.getString("Barcode");
+                    }
                 }
+                if(!latestBarcode.equals(""))
+                titleText.setText("Allow " + troubleshootCode + " to be mapped to " + latestBarcode);
+            }else
+            {
+                titleText.setText("No records found associated with this barcode");
             }
 
         }catch(Exception ex)
