@@ -1,9 +1,12 @@
 package kz.passqr;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -187,8 +191,21 @@ public class HistoryActivity extends Activity {
         @Override
         protected void onPostExecute(String result) {
             Log.i("onPostExecute", result.toString());
-            showTable(result.toString());
+            if(!result.equals(""))
+            {
+                showTable(result.toString());
+            }else
+            {
+                Toast.makeText(HistoryActivity.this, "Not connected to Internet. Please connect and try again", Toast.LENGTH_SHORT).show();
+            }
         }
+    }
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     public String fetchData() {
@@ -198,19 +215,28 @@ public class HistoryActivity extends Activity {
         String URL = "http://54.149.90.101/KzWebservice1/BarCodeScanner.asmx";
         String response = "";
         try {
-            SoapObject Request = new SoapObject(NAMESPACE, METHOD_NAME);
-            // Toast.makeText(ValidationPage.this, "Response" + code, Toast.LENGTH_LONG).show();
-            Request.addProperty("Barcode", troubleshootCode);
-            SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-            soapEnvelope.dotNet = true;
-            soapEnvelope.setOutputSoapObject(Request);
-            HttpTransportSE transport = new HttpTransportSE(URL);
-            transport.call(SOAP_ACTION, soapEnvelope);
-            SoapPrimitive resultString = (SoapPrimitive) soapEnvelope.getResponse();
-            response = resultString.toString();
-            Log.d("Response catched", response);
+            if(isNetworkAvailable())
+            {
+                SoapObject Request = new SoapObject(NAMESPACE, METHOD_NAME);
+                // Toast.makeText(ValidationPage.this, "Response" + code, Toast.LENGTH_LONG).show();
+                Request.addProperty("Barcode", troubleshootCode);
+                SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+                soapEnvelope.dotNet = true;
+                soapEnvelope.setOutputSoapObject(Request);
+                HttpTransportSE transport = new HttpTransportSE(URL);
+                transport.call(SOAP_ACTION, soapEnvelope);
+                SoapPrimitive resultString = (SoapPrimitive) soapEnvelope.getResponse();
+                response = resultString.toString();
+                Log.d("Response catched", response);
+
+            }else
+            {
+                response = "";
+            }
+
         } catch (Exception ex) {
             Log.e("Response", "Error: " + ex.getMessage());
+            response = "";
         }
         return response;
     }

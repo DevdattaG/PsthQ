@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -107,11 +109,25 @@ public class ValidationPage extends ActionBarActivity {
         protected void onPostExecute(Void result) {
             Log.i(TAG, "onPostExecute");
         //    Toast.makeText(ValidationPage.this, "Responce for status : " + status, Toast.LENGTH_LONG).show();
-            statusView.setText(status);
-            details = resultString.toString();
-            statusView.invalidate();
+            if(isNetworkAvailable())
+            {
+                statusView.setText(status);
+                details = resultString.toString();
+                statusView.invalidate();
+            }else
+            {
+                Toast.makeText(ValidationPage.this, "Not connected to Internet. Please connect and try again", Toast.LENGTH_SHORT).show();
+            }
+
         //    Toast.makeText(ValidationPage.this, "Response" + resultString.toString(), Toast.LENGTH_LONG).show();
         }
+    }
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     public void calculate() {
@@ -122,40 +138,46 @@ public class ValidationPage extends ActionBarActivity {
 
         try {
            // String abc = "4444";
-            SoapObject Request = new SoapObject(NAMESPACE, METHOD_NAME);
-           // Toast.makeText(ValidationPage.this, "Response" + code, Toast.LENGTH_LONG).show();
-            Request.addProperty("barcode", code);
-            SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-            soapEnvelope.dotNet = true;
-            soapEnvelope.setOutputSoapObject(Request);
-            HttpTransportSE transport = new HttpTransportSE(URL);
-            transport.call(SOAP_ACTION, soapEnvelope);
-            resultString = (SoapPrimitive) soapEnvelope.getResponse();
-            String response = resultString.toString();
-            final Pattern acknowledgementPattern = Pattern.compile("<Acknowledgement>(.+?)</Acknowledgement>");
-            final Pattern countAckPattern = Pattern.compile("<CountAck>(.+?)</CountAck>");
-            final Matcher acknowledgementMatcher = acknowledgementPattern.matcher(response);
-            final Matcher countAckMatcher = countAckPattern.matcher(response);
-            acknowledgementMatcher.find();
-            countAckMatcher.find();
-            Log.i(TAG, "Response caught : " + response);
-            System.out.println("Acknowledgement Token  " +acknowledgementMatcher.group(1));
-            System.out.println("CountAck Token  " +countAckMatcher.group(1));
-            if(acknowledgementMatcher.group(1).toString().equals("True") && countAckMatcher.group(1).toString().equals("True"))
+            if(isNetworkAvailable())
             {
-                Log.d(TAG,"Valid User... User not checked in yet");
-                status = "Valid Code";
+                SoapObject Request = new SoapObject(NAMESPACE, METHOD_NAME);
+                // Toast.makeText(ValidationPage.this, "Response" + code, Toast.LENGTH_LONG).show();
+                Request.addProperty("barcode", code);
+                SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+                soapEnvelope.dotNet = true;
+                soapEnvelope.setOutputSoapObject(Request);
+                HttpTransportSE transport = new HttpTransportSE(URL);
+                transport.call(SOAP_ACTION, soapEnvelope);
+                resultString = (SoapPrimitive) soapEnvelope.getResponse();
+                String response = resultString.toString();
+                final Pattern acknowledgementPattern = Pattern.compile("<Acknowledgement>(.+?)</Acknowledgement>");
+                final Pattern countAckPattern = Pattern.compile("<CountAck>(.+?)</CountAck>");
+                final Matcher acknowledgementMatcher = acknowledgementPattern.matcher(response);
+                final Matcher countAckMatcher = countAckPattern.matcher(response);
+                acknowledgementMatcher.find();
+                countAckMatcher.find();
+                Log.i(TAG, "Response caught : " + response);
+                System.out.println("Acknowledgement Token  " +acknowledgementMatcher.group(1));
+                System.out.println("CountAck Token  " +countAckMatcher.group(1));
+                if(acknowledgementMatcher.group(1).toString().equals("True") && countAckMatcher.group(1).toString().equals("True"))
+                {
+                    Log.d(TAG,"Valid User... User not checked in yet");
+                    status = "Valid Code";
 
-            }else if(acknowledgementMatcher.group(1).toString().equals("True") && countAckMatcher.group(1).toString().equals("False"))
-            {
-                Log.d(TAG,"Valid User... User has checked in already");
-                status = "Checked In";
-            }else
-            {
-                Log.d(TAG,"Invalid User !!!");
-                status = "Invalid Code";
+                }else if(acknowledgementMatcher.group(1).toString().equals("True") && countAckMatcher.group(1).toString().equals("False"))
+                {
+                    Log.d(TAG,"Valid User... User has checked in already");
+                    status = "Checked In";
+                }else
+                {
+                    Log.d(TAG,"Invalid User !!!");
+                    status = "Invalid Code";
 
+                }
+            }else {
+                Toast.makeText(ValidationPage.this, "Not connected to Internet. Please connect and try again", Toast.LENGTH_SHORT).show();
             }
+
 //            statusView.setText(status);
         } catch (Exception ex) {
             Log.e(TAG, "Error: " + ex.getMessage());
