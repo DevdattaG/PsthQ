@@ -122,7 +122,10 @@ public class ValidationPage extends ActionBarActivity {
         //    Toast.makeText(ValidationPage.this, "Response" + resultString.toString(), Toast.LENGTH_LONG).show();
         }
     }
-
+    public void showOfflineStatus()
+    {
+        statusView.setText("Not Connected");
+    }
     public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -175,6 +178,7 @@ public class ValidationPage extends ActionBarActivity {
 
                 }
             }else {
+                showOfflineStatus();
                 Toast.makeText(ValidationPage.this, "Not connected to Internet. Please connect and try again", Toast.LENGTH_SHORT).show();
             }
 

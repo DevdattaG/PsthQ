@@ -47,14 +47,17 @@ public class HistoryActivity extends Activity {
     static TextView gate;
     static TextView name;
     String troubleshootCode ="";
+    TextView titleText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history_screen);
         Button allowButton = (Button)findViewById(R.id.troubleshootScan);
+        titleText = (TextView)findViewById(R.id.statusMessage);
         TextView title = (TextView)findViewById(R.id.textView2);
         title.setText("Troubleshoot");
+        title.setTypeface(null, Typeface.BOLD);
         allowButton.setVisibility(View.GONE);
         tl=(TableLayout)findViewById(R.id.TableLayout01);
         troubleshootCode = getIntent().getStringExtra("troubleshootCode");
@@ -64,7 +67,7 @@ public class HistoryActivity extends Activity {
 
     public void showTable(String tableData)
     {
-        TextView titleText = (TextView)findViewById(R.id.statusMessage);
+
         try
         {
             JSONArray jr = new JSONArray(tableData.toString());
@@ -173,6 +176,10 @@ public class HistoryActivity extends Activity {
         }
 
     }
+    public void showOfflineStatus()
+    {
+        titleText.setText("Not connected to Internet. Please connect and try again");
+    }
 
     private class AsyncCallWS extends AsyncTask<Void, String, String> {
 
@@ -196,6 +203,7 @@ public class HistoryActivity extends Activity {
                 showTable(result.toString());
             }else
             {
+                showOfflineStatus();
                 Toast.makeText(HistoryActivity.this, "Not connected to Internet. Please connect and try again", Toast.LENGTH_SHORT).show();
             }
         }

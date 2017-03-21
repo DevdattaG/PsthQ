@@ -20,7 +20,7 @@
             android:layout_weight="0.16"
             android:textAlignment="center"
             android:textColor="#000000"
-            android:textSize="16dp"
+            android:textSize="19dp"
             android:textIsSelectable="false"
             android:layout_margin="20dp" />
     </LinearLayout>
