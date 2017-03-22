@@ -12,8 +12,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
 
-// METHOD 1
-
         /****** Create Thread that will sleep for 5 seconds *************/
         Thread background = new Thread() {
             public void run() {
